@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 
 # ============================================================
-# PAGE CONFIG
+# PAGE CONFIGURATION
 # ============================================================
 
 st.set_page_config(
@@ -19,221 +19,128 @@ st.set_page_config(
 
 
 # ============================================================
-# CUSTOM STYLING
+# CUSTOM CSS
+# IMPORTANT:
+# This CSS does NOT contain the page content.
+# It only controls appearance.
 # ============================================================
 
 st.markdown(
     """
-    <style>
+<style>
 
-    /* ========================================================
-       GLOBAL
-       ======================================================== */
+/* ============================================================
+   GLOBAL PAGE
+   ============================================================ */
 
-    .main {
-        background-color: #f7f8fa;
-    }
+.main {
+    background-color: #f7f8fa;
+}
+
+.block-container {
+    max-width: 1200px;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+}
+
+
+/* ============================================================
+   HERO
+   ============================================================ */
+
+.hero-box {
+    background: linear-gradient(
+        135deg,
+        #172554 0%,
+        #1e3a8a 55%,
+        #2563eb 100%
+    );
+
+    border-radius: 18px;
+    padding: 2.2rem 2.4rem;
+    margin-bottom: 1.3rem;
+    color: white;
+}
+
+.hero-title {
+    color: white !important;
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.hero-subtitle {
+    color: #e5edff !important;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-top: 0.7rem;
+    margin-bottom: 0;
+}
+
+
+/* ============================================================
+   STREAMLIT INPUTS
+   ============================================================ */
+
+div[data-testid="stNumberInput"] label,
+div[data-testid="stSelectbox"] label,
+div[data-testid="stSlider"] label {
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   BUTTON
+   ============================================================ */
+
+div.stButton > button {
+    width: 100%;
+    min-height: 3.1rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 768px) {
 
     .block-container {
-        padding-top: 2rem;
-        padding-bottom: 3rem;
-        max-width: 1250px;
+        padding-top: 1rem;
+        padding-left: 0.9rem;
+        padding-right: 0.9rem;
+        padding-bottom: 2rem;
     }
 
-
-    /* ========================================================
-       HERO
-       ======================================================== */
-
-    .hero {
-        padding: 2rem 2.2rem;
-        border-radius: 18px;
-        background: linear-gradient(
-            135deg,
-            #172554 0%,
-            #1e3a8a 55%,
-            #2563eb 100%
-        );
-        color: white;
-        margin-bottom: 1.5rem;
-    }
-
-    .hero h1 {
-        margin: 0;
-        font-size: 2.5rem;
-        font-weight: 750;
-        color: white !important;
-    }
-
-    .hero p {
-        margin: 0.55rem 0 0;
-        font-size: 1.05rem;
-        opacity: 0.9;
-        color: white !important;
-    }
-
-
-    /* ========================================================
-       INPUT SECTION CARDS
-       ======================================================== */
-
-    .section-card {
-        background-color: #ffffff !important;
-        color: #111827 !important;
-        border: 1px solid #e5e7eb;
-        border-radius: 16px;
-        padding: 1.25rem 1.4rem 0.8rem;
-        margin-bottom: 1rem;
-    }
-
-
-    /* ========================================================
-       SECTION TITLES
-       Explicit dark color fixes the mobile visibility issue.
-       ======================================================== */
-
-    .section-title {
-        color: #111827 !important;
-        font-size: 1.15rem;
-        font-weight: 700;
-        margin-bottom: 0.85rem;
-    }
-
-
-    /* ========================================================
-       RESULT CARD
-       ======================================================== */
-
-    .result-card {
-        background-color: #ffffff !important;
-        color: #111827 !important;
-        border: 1px solid #e5e7eb;
-        border-radius: 18px;
-        padding: 1.5rem;
-        text-align: center;
-        min-height: 170px;
-    }
-
-    .result-label {
-        color: #6b7280 !important;
-        font-size: 0.9rem;
-        margin-bottom: 0.35rem;
-    }
-
-    .result-value {
-        color: #111827 !important;
-        font-size: 2rem;
-        font-weight: 800;
-    }
-
-
-    /* ========================================================
-       PROBABILITY CARDS
-       ======================================================== */
-
-    .metric-card {
-        background-color: #ffffff !important;
-        color: #111827 !important;
-        border: 1px solid #e5e7eb;
+    .hero-box {
+        padding: 1.35rem;
         border-radius: 14px;
-        padding: 1rem;
-        text-align: center;
     }
 
-    .metric-value {
-        color: #111827 !important;
-        font-size: 1.55rem;
-        font-weight: 750;
+    .hero-title {
+        font-size: 1.7rem;
     }
 
-    .metric-label {
-        color: #6b7280 !important;
-        font-size: 0.85rem;
+    .hero-subtitle {
+        font-size: 0.92rem;
+        line-height: 1.5;
     }
 
-    .small-note {
-        color: #6b7280 !important;
-        font-size: 0.82rem;
-    }
+}
 
-
-    /* ========================================================
-       BUTTON
-       ======================================================== */
-
-    div.stButton > button {
-        width: 100%;
-        border-radius: 10px;
-        height: 3rem;
-        font-weight: 700;
-    }
-
-
-    /* ========================================================
-       MOBILE
-       ======================================================== */
-
-    @media (max-width: 768px) {
-
-        .block-container {
-            padding-top: 1rem;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-
-        .hero {
-            padding: 1.4rem;
-            border-radius: 14px;
-        }
-
-        .hero h1 {
-            font-size: 1.8rem;
-        }
-
-        .hero p {
-            font-size: 0.95rem;
-        }
-
-        .section-card {
-            background-color: #ffffff !important;
-            color: #111827 !important;
-            padding: 1rem;
-            border-radius: 14px;
-        }
-
-        .section-title {
-            color: #111827 !important;
-            font-size: 1.05rem;
-            font-weight: 700;
-        }
-
-        .result-card,
-        .metric-card {
-            background-color: #ffffff !important;
-            color: #111827 !important;
-        }
-
-        .result-label,
-        .metric-label,
-        .small-note {
-            color: #6b7280 !important;
-        }
-
-        .result-value,
-        .metric-value {
-            color: #111827 !important;
-        }
-    }
-
-    </style>
-    """,
+</style>
+""",
     unsafe_allow_html=True,
 )
 
 
 # ============================================================
 # MODEL CONSTANTS
-# These MUST match the trained model exactly.
+# EXACTLY MATCH THE FINAL 12-FEATURE MODEL
 # ============================================================
 
 MODEL_PATH = "dropout_model.pkl"
@@ -261,8 +168,7 @@ TARGET_LABELS = [
 
 
 # ============================================================
-# INPUT RANGES
-# Based on the project dataset / model features.
+# DATASET-BASED INPUT RANGES
 # ============================================================
 
 SEM_2_APPROVED_MAX = 20
@@ -282,7 +188,7 @@ UNEMPLOYMENT_MAX = 16.2
 
 
 # ============================================================
-# LOAD MODEL
+# LOAD TRAINED MODEL
 # ============================================================
 
 @st.cache_resource
@@ -291,19 +197,24 @@ def load_model():
 
 
 try:
+
     model = load_model()
 
 except FileNotFoundError:
+
     st.error(
-        "The model file 'dropout_model.pkl' was not found. "
-        "Please make sure it is in the same GitHub repository/folder as app.py."
+        "❌ The file 'dropout_model.pkl' could not be found. "
+        "Make sure the model is in the same GitHub repository as app.py."
     )
+
     st.stop()
 
 except Exception as exc:
+
     st.error(
-        f"Could not load the trained model: {exc}"
+        f"❌ The trained model could not be loaded.\n\n{exc}"
     )
+
     st.stop()
 
 
@@ -321,17 +232,17 @@ with st.sidebar:
 
     st.divider()
 
-    st.markdown("### Model information")
+    st.markdown("### 🤖 Model")
 
-    st.write("**Model:** XGBoost")
-    st.write("**Inputs:** 12 features")
-    st.write("**Outcomes:** 3 classes")
-    st.write("**Reported accuracy:** 74.01%")
+    st.write("**Algorithm:** XGBoost")
+    st.write("**Features:** 12")
+    st.write("**Classes:** 3")
+    st.write("**Accuracy:** 74.01%")
     st.write("**Explainability:** SHAP")
 
     st.divider()
 
-    st.markdown("### Outcomes")
+    st.markdown("### 🎯 Possible outcomes")
 
     st.write("🔴 **Dropout**")
     st.write("🟡 **Enrolled**")
@@ -339,37 +250,46 @@ with st.sidebar:
 
     st.divider()
 
+    st.markdown("### ℹ️ About")
+
     st.caption(
-        "This is a proof-of-concept machine-learning application. "
-        "Predictions should not be used as the sole basis for academic decisions."
+        "This application is a data-science proof of concept "
+        "built around the final 12-feature XGBoost model."
     )
 
 
 # ============================================================
-# MAIN HEADER
+# HERO HEADER
+# ============================================================
+#
+# IMPORTANT:
+# The HTML tags below are intentionally NOT indented inside
+# the HTML block. This prevents Streamlit from displaying them
+# as literal text.
 # ============================================================
 
 st.markdown(
     """
-    <div class="hero">
-
-        <h1>🎓 Student Success Intelligence</h1>
-
-        <p>
-            Machine-learning based prediction of student academic outcomes:
-            Dropout, Enrolled, or Graduate.
-        </p>
-
-    </div>
-    """,
+<div class="hero-box">
+<h1 class="hero-title">🎓 Student Success Intelligence</h1>
+<p class="hero-subtitle">
+Machine-learning based prediction of student academic outcomes:
+Dropout, Enrolled, or Graduate.
+</p>
+</div>
+""",
     unsafe_allow_html=True,
 )
 
 
+# ============================================================
+# INTRODUCTION
+# ============================================================
+
 st.info(
-    "Enter the student's academic, financial, demographic, and economic "
-    "information below. The application uses the same 12 features as the "
-    "deployed XGBoost model."
+    "Enter the student's academic, financial, demographic, and "
+    "economic information below. The application uses the same "
+    "12 features as the final deployed XGBoost model."
 )
 
 
@@ -377,201 +297,185 @@ st.info(
 # STUDENT PROFILE
 # ============================================================
 
-st.markdown(
-    """
-    <div class="section-card">
-        <div class="section-title">
-            👤 Student Profile
-        </div>
-    """,
-    unsafe_allow_html=True,
-)
+with st.container(border=True):
 
+    st.markdown("### 👤 Student Profile")
 
-c1, c2, c3, c4 = st.columns(4)
+    c1, c2 = st.columns(2)
 
+    with c1:
 
-with c1:
+        age = st.number_input(
+            "Age at enrollment",
+            min_value=AGE_MIN,
+            max_value=AGE_MAX,
+            value=19,
+            step=1,
+        )
 
-    age = st.number_input(
-        "Age at enrollment",
-        min_value=AGE_MIN,
-        max_value=AGE_MAX,
-        value=19,
-        step=1,
-    )
+        gender_label = st.selectbox(
+            "Gender",
+            ["Female", "Male"],
+        )
 
+    with c2:
 
-with c2:
+        course = st.number_input(
+            "Course ID",
+            min_value=COURSE_MIN,
+            max_value=COURSE_MAX,
+            value=1,
+            step=1,
+            help=(
+                "Course IDs 1–17 are the coded course "
+                "values present in the dataset."
+            ),
+        )
 
-    gender_label = st.selectbox(
-        "Gender",
-        ["Female", "Male"],
-    )
-
-
-with c3:
-
-    course = st.number_input(
-        "Course ID",
-        min_value=COURSE_MIN,
-        max_value=COURSE_MAX,
-        value=1,
-        step=1,
-        help="Course IDs 1–17 are the coded course values present in the dataset.",
-    )
-
-
-with c4:
-
-    scholarship_label = st.selectbox(
-        "Scholarship holder?",
-        ["No", "Yes"],
-    )
-
-
-st.markdown(
-    "</div>",
-    unsafe_allow_html=True,
-)
+        scholarship_label = st.selectbox(
+            "Scholarship holder?",
+            ["No", "Yes"],
+        )
 
 
 # ============================================================
 # ACADEMIC PROGRESS
 # ============================================================
 
-st.markdown(
-    """
-    <div class="section-card">
-        <div class="section-title">
-            📚 Academic Progress
-        </div>
-    """,
-    unsafe_allow_html=True,
-)
+with st.container(border=True):
 
+    st.markdown("### 📚 Academic Progress")
 
-a1, a2, a3 = st.columns(3)
+    a1, a2 = st.columns(2)
 
+    with a1:
 
-with a1:
+        units_1st_approved = st.number_input(
+            "1st semester units approved",
+            min_value=0,
+            max_value=SEM_1_APPROVED_MAX,
+            value=5,
+            step=1,
+        )
 
-    units_1st_approved = st.number_input(
-        "1st semester units approved",
-        min_value=0,
-        max_value=SEM_1_APPROVED_MAX,
-        value=5,
-        step=1,
-    )
+        units_2nd_approved = st.number_input(
+            "2nd semester units approved",
+            min_value=0,
+            max_value=SEM_2_APPROVED_MAX,
+            value=5,
+            step=1,
+        )
 
+        grade_1st = st.slider(
+            "1st semester average grade",
+            min_value=0.0,
+            max_value=GRADE_MAX,
+            value=12.0,
+            step=0.1,
+        )
 
-with a2:
+    with a2:
 
-    units_2nd_approved = st.number_input(
-        "2nd semester units approved",
-        min_value=0,
-        max_value=SEM_2_APPROVED_MAX,
-        value=5,
-        step=1,
-    )
+        units_2nd_enrolled = st.number_input(
+            "2nd semester units enrolled",
+            min_value=0,
+            max_value=SEM_2_ENROLLED_MAX,
+            value=6,
+            step=1,
+        )
 
-
-with a3:
-
-    units_2nd_enrolled = st.number_input(
-        "2nd semester units enrolled",
-        min_value=0,
-        max_value=SEM_2_ENROLLED_MAX,
-        value=6,
-        step=1,
-    )
-
-
-a4, a5 = st.columns(2)
-
-
-with a4:
-
-    grade_1st = st.slider(
-        "1st semester average grade",
-        min_value=0.0,
-        max_value=GRADE_MAX,
-        value=12.0,
-        step=0.1,
-    )
-
-
-with a5:
-
-    grade_2nd = st.slider(
-        "2nd semester average grade",
-        min_value=0.0,
-        max_value=GRADE_MAX,
-        value=12.0,
-        step=0.1,
-    )
-
-
-st.markdown(
-    "</div>",
-    unsafe_allow_html=True,
-)
+        grade_2nd = st.slider(
+            "2nd semester average grade",
+            min_value=0.0,
+            max_value=GRADE_MAX,
+            value=12.0,
+            step=0.1,
+        )
 
 
 # ============================================================
 # FINANCIAL & ECONOMIC FACTORS
 # ============================================================
 
-st.markdown(
-    """
-    <div class="section-card">
-        <div class="section-title">
-            💳 Financial & Economic Factors
-        </div>
-    """,
-    unsafe_allow_html=True,
-)
+with st.container(border=True):
+
+    st.markdown("### 💳 Financial & Economic Factors")
+
+    f1, f2 = st.columns(2)
+
+    with f1:
+
+        tuition_label = st.selectbox(
+            "Tuition fees up to date?",
+            ["Yes", "No"],
+        )
+
+        debtor_label = st.selectbox(
+            "Is the student a debtor?",
+            ["No", "Yes"],
+        )
+
+    with f2:
+
+        unemployment_rate = st.number_input(
+            "Regional unemployment rate (%)",
+            min_value=float(UNEMPLOYMENT_MIN),
+            max_value=float(UNEMPLOYMENT_MAX),
+            value=11.0,
+            step=0.1,
+        )
 
 
-f1, f2, f3 = st.columns(3)
+# ============================================================
+# INPUT SUMMARY
+# ============================================================
 
+with st.expander("🔎 Review entered information"):
 
-with f1:
+    review_data = pd.DataFrame(
+        {
+            "Feature": [
+                "Age at enrollment",
+                "Gender",
+                "Course",
+                "Scholarship holder",
+                "1st semester units approved",
+                "2nd semester units approved",
+                "2nd semester units enrolled",
+                "1st semester grade",
+                "2nd semester grade",
+                "Tuition fees up to date",
+                "Debtor",
+                "Unemployment rate",
+            ],
 
-    tuition_label = st.selectbox(
-        "Tuition fees up to date?",
-        ["Yes", "No"],
+            "Value": [
+                age,
+                gender_label,
+                course,
+                scholarship_label,
+                units_1st_approved,
+                units_2nd_approved,
+                units_2nd_enrolled,
+                f"{grade_1st:.1f}",
+                f"{grade_2nd:.1f}",
+                tuition_label,
+                debtor_label,
+                f"{unemployment_rate:.1f}%",
+            ],
+        }
     )
 
-
-with f2:
-
-    debtor_label = st.selectbox(
-        "Is the student a debtor?",
-        ["No", "Yes"],
+    st.dataframe(
+        review_data,
+        hide_index=True,
+        use_container_width=True,
     )
-
-
-with f3:
-
-    unemployment_rate = st.number_input(
-        "Regional unemployment rate (%)",
-        min_value=float(UNEMPLOYMENT_MIN),
-        max_value=float(UNEMPLOYMENT_MAX),
-        value=11.0,
-        step=0.1,
-    )
-
-
-st.markdown(
-    "</div>",
-    unsafe_allow_html=True,
-)
 
 
 # ============================================================
 # BUILD MODEL INPUT
-# Exact feature order from the trained model.
+# EXACT FEATURE ORDER
 # ============================================================
 
 input_row = {
@@ -625,31 +529,38 @@ X_input = (
 # ANALYZE BUTTON
 # ============================================================
 
-st.markdown("### 🔍 Analyze Student")
+st.markdown("## 🔍 Analyze Student")
 
-
-if st.button(
+analyze = st.button(
     "Analyze Student",
     type="primary",
-):
+    use_container_width=True,
+)
 
-    # ========================================================
-    # PREDICTION
-    # ========================================================
+
+# ============================================================
+# PREDICTION
+# ============================================================
+
+if analyze:
 
     with st.spinner(
-        "Analyzing student profile..."
+        "Analyzing the student profile..."
     ):
 
         try:
 
-            prediction = int(
-                model.predict(X_input)[0]
-            )
+            prediction_raw = model.predict(
+                X_input
+            )[0]
 
             probabilities = model.predict_proba(
                 X_input
             )[0]
+
+            prediction = int(
+                prediction_raw
+            )
 
         except Exception as exc:
 
@@ -660,102 +571,96 @@ if st.button(
             st.stop()
 
 
-    predicted_label = TARGET_LABELS[prediction]
+    # ========================================================
+    # MAP MODEL CLASS
+    # ========================================================
+
+    if prediction in [0, 1, 2]:
+
+        predicted_label = (
+            TARGET_LABELS[prediction]
+        )
+
+    else:
+
+        st.error(
+            "The model returned an unexpected class value."
+        )
+
+        st.stop()
 
 
     # ========================================================
-    # MAIN RESULT
+    # RESULT HEADER
     # ========================================================
 
-    st.markdown("## Prediction")
+    st.divider()
+
+    st.markdown("## 📊 Prediction Result")
 
 
-    result_col, prob_col = st.columns(
-        [1, 2]
-    )
+    if predicted_label == "Dropout":
+
+        icon = "🔴"
+        message = (
+            "The model's highest-probability outcome "
+            "is Dropout."
+        )
+
+    elif predicted_label == "Enrolled":
+
+        icon = "🟡"
+        message = (
+            "The model's highest-probability outcome "
+            "is Enrolled."
+        )
+
+    else:
+
+        icon = "🟢"
+        message = (
+            "The model's highest-probability outcome "
+            "is Graduate."
+        )
 
 
-    with result_col:
+    # ========================================================
+    # MAIN RESULT CARD
+    # ========================================================
 
-        if predicted_label == "Dropout":
-
-            icon = "🔴"
-
-        elif predicted_label == "Enrolled":
-
-            icon = "🟡"
-
-        else:
-
-            icon = "🟢"
-
+    with st.container(border=True):
 
         st.markdown(
-            f"""
-            <div class="result-card">
-
-                <div class="result-label">
-                    Predicted outcome
-                </div>
-
-                <div class="result-value">
-                    {icon} {predicted_label}
-                </div>
-
-                <div class="small-note">
-                    Highest model probability
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True,
+            "### Predicted outcome"
         )
-
-
-    # ========================================================
-    # PROBABILITY CHART
-    # ========================================================
-
-    with prob_col:
 
         st.markdown(
-            "#### Predicted probabilities"
+            f"# {icon} {predicted_label}"
         )
-
-
-        probability_df = pd.DataFrame(
-            {
-                "Outcome":
-                    TARGET_LABELS,
-
-                "Probability":
-                    probabilities * 100,
-            }
-        )
-
-
-        st.bar_chart(
-            probability_df.set_index(
-                "Outcome"
-            ),
-            y="Probability",
-        )
-
 
         st.caption(
-            "These are model probabilities, not guarantees "
-            "of a student's future outcome."
+            message
         )
 
 
     # ========================================================
-    # PROBABILITY CARDS
+    # PROBABILITY BREAKDOWN
     # ========================================================
 
     st.markdown(
-        "#### Outcome breakdown"
+        "### 📈 Predicted Probabilities"
     )
 
+
+    probability_df = pd.DataFrame(
+        {
+            "Outcome": TARGET_LABELS,
+            "Probability": probabilities,
+        }
+    )
+
+
+    # Probability cards
 
     p1, p2, p3 = st.columns(3)
 
@@ -768,116 +673,138 @@ if st.button(
 
         with col:
 
-            st.markdown(
-                f"""
-                <div class="metric-card">
+            with st.container(border=True):
 
-                    <div class="metric-label">
-                        {label}
-                    </div>
+                if label == "Dropout":
+                    emoji = "🔴"
 
-                    <div class="metric-value">
-                        {value:.1%}
-                    </div>
+                elif label == "Enrolled":
+                    emoji = "🟡"
 
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+                else:
+                    emoji = "🟢"
+
+                st.metric(
+                    label=f"{emoji} {label}",
+                    value=f"{value:.1%}",
+                )
 
 
-    st.divider()
+    # ========================================================
+    # BAR CHART
+    # ========================================================
+
+    st.markdown(
+        "#### Outcome probability comparison"
+    )
+
+
+    chart_df = probability_df.copy()
+
+    chart_df["Probability"] = (
+        chart_df["Probability"] * 100
+    )
+
+
+    st.bar_chart(
+        chart_df.set_index("Outcome")[
+            "Probability"
+        ],
+        use_container_width=True,
+    )
+
+
+    st.caption(
+        "These values represent the model's estimated "
+        "probabilities for the three possible outcomes. "
+        "They are not guarantees of future student behavior."
+    )
 
 
     # ========================================================
     # SHAP EXPLANATION
     # ========================================================
 
+    st.divider()
+
     st.markdown(
         "## 🔎 Why did the model make this prediction?"
     )
 
-
-    st.caption(
-        "SHAP shows how the student's input values influenced "
-        "the model's prediction. The explanation is generated "
-        "from the same XGBoost model used for prediction."
+    st.write(
+        "SHAP explains how the student's 12 input features "
+        "contributed to the model's prediction."
     )
 
 
     try:
 
         with st.spinner(
-            "Generating explanation..."
+            "Generating SHAP explanation..."
         ):
+
+            # ------------------------------------------------
+            # Create SHAP explainer
+            # ------------------------------------------------
 
             explainer = shap.TreeExplainer(
                 model
             )
 
-            shap_values = explainer.shap_values(
+            shap_explanation = explainer(
                 X_input
             )
 
 
+            shap_array = np.asarray(
+                shap_explanation.values
+            )
+
+
             # ------------------------------------------------
-            # SHAP OUTPUT COMPATIBILITY
+            # Handle SHAP output dimensions
             # ------------------------------------------------
 
-            if isinstance(
-                shap_values,
-                list
-            ):
+            if shap_array.ndim == 3:
 
-                class_values = np.asarray(
-                    shap_values[prediction]
-                )[0]
+                # Shape:
+                # samples × features × classes
+
+                class_values = (
+                    shap_array[
+                        0,
+                        :,
+                        prediction
+                    ]
+                )
+
+
+            elif shap_array.ndim == 2:
+
+                # Shape:
+                # samples × features
+
+                class_values = (
+                    shap_array[0]
+                )
 
 
             else:
 
-                shap_array = np.asarray(
-                    shap_values
+                raise ValueError(
+                    "Unexpected SHAP output shape: "
+                    f"{shap_array.shape}"
                 )
 
 
-                if shap_array.ndim == 3:
-
-                    class_values = (
-                        shap_array[
-                            0,
-                            :,
-                            prediction
-                        ]
-                    )
-
-
-                elif shap_array.ndim == 2:
-
-                    class_values = (
-                        shap_array[0]
-                    )
-
-
-                else:
-
-                    raise ValueError(
-                        "Unexpected SHAP output shape: "
-                        f"{shap_array.shape}"
-                    )
-
-
             # ------------------------------------------------
-            # SHAP DATAFRAME
+            # Create explanation dataframe
             # ------------------------------------------------
 
             explanation_df = pd.DataFrame(
                 {
-                    "Feature":
-                        FEATURE_ORDER,
-
-                    "SHAP value":
-                        class_values,
+                    "Feature": FEATURE_ORDER,
+                    "SHAP value": class_values,
                 }
             )
 
@@ -908,7 +835,7 @@ if st.button(
 
 
             # ------------------------------------------------
-            # HUMAN-READABLE FEATURE NAMES
+            # Human-readable feature names
             # ------------------------------------------------
 
             readable_names = {
@@ -961,11 +888,11 @@ if st.button(
 
 
             # ------------------------------------------------
-            # SHAP BAR CHART
+            # SHAP chart
             # ------------------------------------------------
 
-            fig, ax = plt.subplots(
-                figsize=(9, 4.8)
+            st.markdown(
+                "### Top factors influencing the prediction"
             )
 
 
@@ -974,6 +901,11 @@ if st.button(
                 .sort_values(
                     "SHAP value"
                 )
+            )
+
+
+            fig, ax = plt.subplots(
+                figsize=(9, 5)
             )
 
 
@@ -995,8 +927,8 @@ if st.button(
 
 
             ax.set_title(
-                f"Top factors influencing: "
-                f"{predicted_label}"
+                f"Factors influencing "
+                f"{predicted_label} prediction"
             )
 
 
@@ -1013,11 +945,11 @@ if st.button(
 
 
             # ------------------------------------------------
-            # TOP CONTRIBUTING FACTORS
+            # SHAP interpretation
             # ------------------------------------------------
 
             st.markdown(
-                "#### Top contributing factors"
+                "### 🧠 Top contributing factors"
             )
 
 
@@ -1025,29 +957,63 @@ if st.button(
                 top_features.iterrows()
             ):
 
-                direction = (
-                    "toward"
-                    if row["SHAP value"] > 0
-                    else "away from"
-                )
+                feature_name = row[
+                    "Feature"
+                ]
+
+                shap_value = row[
+                    "SHAP value"
+                ]
+
+
+                if shap_value > 0:
+
+                    direction = (
+                        "pushed the model toward "
+                        f"the **{predicted_label}** prediction"
+                    )
+
+                elif shap_value < 0:
+
+                    direction = (
+                        "pushed the model away from "
+                        f"the **{predicted_label}** prediction"
+                    )
+
+                else:
+
+                    direction = (
+                        "had approximately no directional "
+                        "contribution"
+                    )
 
 
                 st.write(
-                    f"**{row['Feature']}** — "
-                    f"{direction} the "
-                    f"`{predicted_label}` prediction "
-                    f"(SHAP: "
-                    f"{row['SHAP value']:.3f})"
+                    f"**{feature_name}** — "
+                    f"{direction} "
+                    f"*(SHAP = {shap_value:.3f})*"
                 )
+
+
+            # ------------------------------------------------
+            # SHAP explanation note
+            # ------------------------------------------------
+
+            st.caption(
+                "A positive SHAP value means the feature "
+                "contributed in the direction of the displayed "
+                "predicted class for this explanation. "
+                "A negative value means it contributed in the "
+                "opposite direction."
+            )
 
 
     except Exception as exc:
 
         st.warning(
-            "The prediction was generated "
-            "successfully, but the individual "
-            f"SHAP explanation could not be "
-            f"displayed: {exc}"
+            "The prediction was generated successfully, "
+            "but the individual SHAP explanation could "
+            f"not be displayed: {exc}"
         )
 
 
@@ -1057,21 +1023,21 @@ if st.button(
 
     st.divider()
 
+    with st.container(border=True):
 
-    st.markdown(
-        "### ⚠️ Responsible use"
-    )
+        st.markdown(
+            "### ⚠️ Responsible Use"
+        )
 
-
-    st.warning(
-        "This model is a proof-of-concept trained "
-        "on a public student dataset. A prediction "
-        "is a statistical estimate, not a definitive "
-        "statement about a student's future. It should "
-        "not be used as the sole basis for academic "
-        "admissions, disciplinary action, financial "
-        "decisions, or other high-impact decisions."
-    )
+        st.warning(
+            "This model is a proof-of-concept trained on "
+            "a public education dataset. A prediction is a "
+            "statistical estimate, not a definitive statement "
+            "about a student's future. It should not be used "
+            "as the sole basis for academic admissions, "
+            "disciplinary action, financial decisions, or "
+            "other high-impact decisions."
+        )
 
 
 # ============================================================
@@ -1082,43 +1048,49 @@ st.divider()
 
 
 with st.expander(
-    "About this application"
+    "📘 About this application"
 ):
 
     st.markdown(
         """
-        **Student Success Intelligence** is an
-        interactive application built around the
-        final 12-feature XGBoost model developed
-        in the project notebook.
+**Student Success Intelligence** is an interactive
+machine-learning application built around the final
+12-feature XGBoost model developed in the project notebook.
 
-        **Model outputs**
+### Model
 
-        - Dropout
-        - Enrolled
-        - Graduate
+- **Algorithm:** XGBoost
+- **Features:** 12
+- **Outcomes:** Dropout, Enrolled, Graduate
+- **Reported accuracy:** 74.01%
+- **Explainability:** SHAP
 
-        **Model performance**
+### Model inputs
 
-        - Reported accuracy: **74.01%**
+The application uses:
 
-        **Model inputs**
+- 2nd semester units approved
+- Tuition fees up to date
+- 1st semester units approved
+- 2nd semester units enrolled
+- Course
+- Age at enrollment
+- Gender
+- Regional unemployment rate
+- 2nd semester grade
+- 1st semester grade
+- Debtor status
+- Scholarship holder status
 
-        - Academic progress
-        - Tuition/payment status
-        - Student demographics
-        - Course
-        - Regional unemployment rate
+### Purpose
 
-        **Explainability**
+The application demonstrates how the trained model
+can be used interactively and how individual predictions
+can be interpreted using SHAP.
 
-        - Individual predictions can be examined
-          using SHAP feature contributions.
-
-        The application is intended as a data-science
-        proof of concept rather than a production
-        academic decision system.
-        """
+It is intended as a **data-science project demonstration**
+rather than a production academic decision system.
+"""
     )
 
 
@@ -1127,6 +1099,6 @@ with st.expander(
 # ============================================================
 
 st.caption(
-    "Student Success Intelligence • "
+    "🎓 Student Success Intelligence • "
     "XGBoost + SHAP • Data Science Project"
 )
