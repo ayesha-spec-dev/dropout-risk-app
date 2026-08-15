@@ -7,33 +7,13 @@ import matplotlib.pyplot as plt
 # ---- Page setup ----
 st.set_page_config(page_title="Student Dropout Risk Predictor", page_icon="🎓", layout="centered")
 
-# ---- Custom styling: education-themed background + hero banner ----
+# ---- Custom styling: education-themed hero banner only ----
+# (Kept deliberately minimal — Streamlit's own theme, set in .streamlit/config.toml,
+# already handles correct text/background pairing for every input, dropdown, and
+# widget automatically. Overriding that broadly caused more contrast bugs than it fixed.)
 st.markdown(
     """
     <style>
-    /* Force readable light text everywhere, on every widget, no exceptions */
-    .stApp, .stApp * {
-        color: #F5F5F5 !important;
-    }
-
-    .stApp {
-        background-image:
-            radial-gradient(circle at 8% 15%, rgba(245,166,35,0.06) 0%, transparent 8%),
-            radial-gradient(circle at 92% 25%, rgba(245,166,35,0.05) 0%, transparent 10%),
-            radial-gradient(circle at 15% 85%, rgba(245,166,35,0.05) 0%, transparent 9%),
-            radial-gradient(circle at 88% 80%, rgba(245,166,35,0.06) 0%, transparent 8%);
-        background-attachment: fixed;
-    }
-
-    /* Input boxes need their own lighter background so the white text is visible */
-    input, textarea, select,
-    div[data-baseweb="input"], div[data-baseweb="select"],
-    div[data-baseweb="slider"] {
-        background-color: #2A2E45 !important;
-        color: #F5F5F5 !important;
-    }
-
-    /* Hero banner */
     .hero-banner {
         background: linear-gradient(135deg, #1C1F2E 0%, #2A2E45 100%);
         border: 1px solid rgba(245,166,35,0.35);
@@ -49,22 +29,15 @@ st.markdown(
         margin-bottom: 6px;
     }
     .hero-banner h1 {
-        color: #F5A623 !important;
+        color: #F5A623;
         font-size: 30px;
         margin: 6px 0 4px 0;
     }
     .hero-banner p {
-        color: #E5E5E5 !important;
+        color: #E5E5E5;
         font-size: 15px;
         max-width: 560px;
         margin: 0 auto;
-    }
-
-    /* Style expander headers/bodies like cards, with guaranteed-readable text */
-    div[data-testid="stExpander"] {
-        border: 1px solid rgba(245,166,35,0.25);
-        border-radius: 12px;
-        background-color: #161925 !important;
     }
     </style>
 
