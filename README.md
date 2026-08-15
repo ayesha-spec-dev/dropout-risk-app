@@ -1,8 +1,14 @@
-# Student Dropout Risk Predictor 🎓
+# 🎓 Student Success Intelligence
 
-An AI system that predicts whether a student will drop out, stay enrolled, or graduate — and explains *why* — built on real, published higher-education data, with a live interactive app anyone can try.
+An XGBoost-based machine learning project for predicting student outcomes.
 
-🔗 **Try the live app:** [add your streamlit.app link here once deployed]
+## 🚀 Live Demo
+
+👉 **[Launch Student Success Intelligence App](https://dropout-risk-app-6aqozrjwi3gbymruek7dba.streamlit.app/)**
+
+## 📌 Project Overview
+
+...
 
 ---
 
