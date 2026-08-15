@@ -8,14 +8,216 @@ import matplotlib.pyplot as plt
 # ============================================================
 # PAGE CONFIG
 # ============================================================
-st.set_page_config(
-    page_title="Student Success Intelligence",
-    page_icon="🎓",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
+# ============================================================
+# CUSTOM STYLING
+# ============================================================
 
-<style>
+st.markdown(
+    """
+    <style>
+
+    /* ============================================================
+       GLOBAL APP STYLING
+       ============================================================ */
+
+    .main {
+        background-color: #f7f8fa;
+    }
+
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+        max-width: 1250px;
+    }
+
+
+    /* ============================================================
+       HERO HEADER
+       ============================================================ */
+
+    .hero {
+        padding: 2rem 2.2rem;
+        border-radius: 18px;
+        background: linear-gradient(
+            135deg,
+            #172554 0%,
+            #1e3a8a 55%,
+            #2563eb 100%
+        );
+        color: white;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        font-weight: 750;
+        color: white !important;
+    }
+
+    .hero p {
+        margin: 0.55rem 0 0;
+        font-size: 1.05rem;
+        opacity: 0.9;
+        color: white !important;
+    }
+
+
+    /* ============================================================
+       INPUT SECTION CARDS
+       ============================================================ */
+
+    .section-card {
+        background-color: #ffffff !important;
+        color: #111827 !important;
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        padding: 1.25rem 1.4rem 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+
+    /* ============================================================
+       SECTION TITLES
+       ============================================================ */
+
+    .section-title {
+        color: #111827 !important;
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-bottom: 0.85rem;
+    }
+
+
+    /* ============================================================
+       RESULT CARD
+       ============================================================ */
+
+    .result-card {
+        background-color: #ffffff !important;
+        color: #111827 !important;
+        border: 1px solid #e5e7eb;
+        border-radius: 18px;
+        padding: 1.5rem;
+        text-align: center;
+        min-height: 170px;
+    }
+
+    .result-label {
+        color: #6b7280 !important;
+        font-size: 0.9rem;
+        margin-bottom: 0.35rem;
+    }
+
+    .result-value {
+        color: #111827 !important;
+        font-size: 2rem;
+        font-weight: 800;
+    }
+
+
+    /* ============================================================
+       METRIC CARDS
+       ============================================================ */
+
+    .metric-card {
+        background-color: #ffffff !important;
+        color: #111827 !important;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .metric-value {
+        color: #111827 !important;
+        font-size: 1.55rem;
+        font-weight: 750;
+    }
+
+    .metric-label {
+        color: #6b7280 !important;
+        font-size: 0.85rem;
+    }
+
+    .small-note {
+        color: #6b7280 !important;
+        font-size: 0.82rem;
+    }
+
+
+    /* ============================================================
+       ANALYZE BUTTON
+       ============================================================ */
+
+    div.stButton > button {
+        width: 100%;
+        border-radius: 10px;
+        height: 3rem;
+        font-weight: 700;
+    }
+
+
+    /* ============================================================
+       MOBILE SAFETY
+       ============================================================ */
+
+    @media (max-width: 768px) {
+
+        .block-container {
+            padding-top: 1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .hero {
+            padding: 1.4rem;
+            border-radius: 14px;
+        }
+
+        .hero h1 {
+            font-size: 1.8rem;
+        }
+
+        .hero p {
+            font-size: 0.95rem;
+        }
+
+        .section-card {
+            background-color: #ffffff !important;
+            color: #111827 !important;
+            padding: 1rem;
+            border-radius: 14px;
+        }
+
+        .section-title {
+            color: #111827 !important;
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+
+        .result-card,
+        .metric-card {
+            background-color: #ffffff !important;
+            color: #111827 !important;
+        }
+
+        .result-label,
+        .metric-label,
+        .small-note {
+            color: #6b7280 !important;
+        }
+
+        .result-value,
+        .metric-value {
+            color: #111827 !important;
+        }
+    }
+
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 /* ============================================================
    GLOBAL APP STYLING
    ============================================================ */
