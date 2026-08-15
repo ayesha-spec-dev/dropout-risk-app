@@ -7,18 +7,68 @@ import matplotlib.pyplot as plt
 # ---- Page setup ----
 st.set_page_config(page_title="Student Dropout Risk Predictor", page_icon="🎓", layout="centered")
 
-st.title("🎓 Student Dropout Risk Predictor")
+# ---- Custom styling: education-themed background + hero banner ----
 st.markdown(
-    "This AI tool estimates a student's risk of **dropping out**, **staying enrolled**, "
-    "or **graduating**, based on their academic performance and background — and explains "
-    "which factors matter most for that specific prediction."
+    """
+    <style>
+    /* Subtle floating education icons across the whole page background */
+    .stApp {
+        background-image:
+            radial-gradient(circle at 8% 15%, rgba(245,166,35,0.06) 0%, transparent 8%),
+            radial-gradient(circle at 92% 25%, rgba(245,166,35,0.05) 0%, transparent 10%),
+            radial-gradient(circle at 15% 85%, rgba(245,166,35,0.05) 0%, transparent 9%),
+            radial-gradient(circle at 88% 80%, rgba(245,166,35,0.06) 0%, transparent 8%);
+        background-attachment: fixed;
+    }
+
+    /* Hero banner */
+    .hero-banner {
+        background: linear-gradient(135deg, #1C1F2E 0%, #2A2E45 100%);
+        border: 1px solid rgba(245,166,35,0.35);
+        border-radius: 16px;
+        padding: 28px 24px;
+        text-align: center;
+        margin-bottom: 24px;
+    }
+    .hero-banner .icons {
+        font-size: 34px;
+        letter-spacing: 18px;
+        opacity: 0.9;
+        margin-bottom: 6px;
+    }
+    .hero-banner h1 {
+        color: #F5A623;
+        font-size: 30px;
+        margin: 6px 0 4px 0;
+    }
+    .hero-banner p {
+        color: #C9CCD6;
+        font-size: 15px;
+        max-width: 560px;
+        margin: 0 auto;
+    }
+
+    /* Style expander headers like cards */
+    div[data-testid="stExpander"] {
+        border: 1px solid rgba(245,166,35,0.25);
+        border-radius: 12px;
+        background-color: #161925;
+    }
+    </style>
+
+    <div class="hero-banner">
+        <div class="icons">🎓 📘 ✏️ 📊 🏫</div>
+        <h1>Student Dropout Risk Predictor</h1>
+        <p>An AI tool estimating a student's risk of <b>dropping out</b>, <b>staying enrolled</b>,
+        or <b>graduating</b> — and explaining exactly which factors drove that specific prediction.</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
 )
 
 st.info(
-    "📌 **Note:** This model was trained on a European university dataset, which uses a "
-    "**0-20 grading scale** (not percentages or GPA). Rough conversion: a score of 20 = "
-    "excellent (like 90%+), 14-16 = good (like 70-80%), 10 = just passing (like 50%), "
-    "below 10 = failing. Use your best estimate if converting from a percentage system.",
+    "📌 Just enter marks the normal way — as a **percentage (0-100%)**. The app converts it "
+    "automatically behind the scenes, so no manual conversion needed.",
     icon="ℹ️",
 )
 
@@ -42,6 +92,11 @@ FEATURE_ORDER = [
 
 TARGET_LABELS = ["Dropout", "Enrolled", "Graduate"]
 
+# Fixed, real defaults for the 2 fields that don't translate meaningfully across education
+# systems (kept internally, not shown to the user) — computed from the actual training data.
+DEFAULT_COURSE_CODE = 12       # most common course in the training data
+DEFAULT_UNEMPLOYMENT_RATE = 11.57  # average unemployment rate in the training data
+
 st.divider()
 st.subheader("📋 Student Details")
 
@@ -57,11 +112,11 @@ with st.expander("📚 Academic Performance", expanded=True):
             help="How many 1st-semester subjects did the student pass (not just attempt)?",
             key="u1a",
         )
-        grade_1st = st.slider(
-            "Average grade (0-20 scale)",
-            0.0, 20.0, 12.0, 0.1,
-            help="Average score across 1st-semester subjects, on the 0-20 scale explained above.",
-            key="g1",
+        percent_1st = st.slider(
+            "Average marks (%)",
+            0, 100, 60, 1,
+            help="Average percentage across 1st-semester subjects — enter it the normal way, no conversion needed.",
+            key="p1",
         )
     with c2:
         st.caption("2nd Semester")
@@ -71,65 +126,56 @@ with st.expander("📚 Academic Performance", expanded=True):
             help="How many 2nd-semester subjects did the student pass (not just attempt)?",
             key="u2a",
         )
-        grade_2nd = st.slider(
-            "Average grade (0-20 scale)",
-            0.0, 20.0, 12.0, 0.1,
-            help="Average score across 2nd-semester subjects, on the 0-20 scale explained above.",
-            key="g2",
+        percent_2nd = st.slider(
+            "Average marks (%)",
+            0, 100, 60, 1,
+            help="Average percentage across 2nd-semester subjects — enter it the normal way, no conversion needed.",
+            key="p2",
         )
 
+    # Convert percentage -> the model's internal 0-20 scale, invisibly
+    grade_1st = (percent_1st / 100) * 20
+    grade_2nd = (percent_2nd / 100) * 20
+
     units_2nd_enrolled = st.number_input(
-        "Subjects registered for in 2nd semester (enrolled, whether passed or not)",
+        "Subjects registered for in 2nd semester (whether passed or not)",
         min_value=0, max_value=26, value=6,
         help="Total number of subjects the student signed up for in the 2nd semester, including any they didn't pass.",
     )
 
-with st.expander("💰 Financial & Background Details", expanded=True):
+with st.expander("💰 Financial Details", expanded=True):
     tuition_up_to_date = st.radio(
         "Is the student up to date on tuition payments?",
         ["Yes", "No"],
         horizontal=True,
-        help="Has the student paid their tuition fees on schedule, with nothing overdue?",
     )
     debtor = st.radio(
-        "Does the student owe any other outstanding debt to the university?",
+        "Does the student owe any other outstanding fees to the institution?",
         ["No", "Yes"],
         horizontal=True,
-        help="Separate from tuition — any other unpaid fees or debts owed to the institution.",
     )
     scholarship = st.radio(
         "Is the student on a scholarship?",
         ["No", "Yes"],
         horizontal=True,
     )
-    unemployment_rate = st.slider(
-        "Local unemployment rate at the time (%)",
-        0.0, 30.0, 11.0, 0.5,
-        help="The general unemployment rate in the student's region/country around this time. "
-             "If unsure, a typical value (10-12%) is a reasonable default.",
-    )
 
 with st.expander("👤 Personal Details", expanded=True):
     age = st.number_input("Age at enrollment", min_value=17, max_value=70, value=19)
     gender = st.radio("Gender", ["Female", "Male"], horizontal=True)
-    course_code = st.number_input(
-        "Course/program code",
-        min_value=1, max_value=17, value=1,
-        help="A numeric code (1-17) representing the specific degree program, as coded in the "
-             "original dataset. If you don't know the exact code, leave the default — it has a "
-             "smaller effect on the prediction than the academic and financial fields above.",
-    )
 
-# Build the row the model expects
+# Build the row the model expects — 2 fields (Course, Unemployment rate) use fixed real
+# defaults from the training data instead of asking the user, since they don't translate
+# meaningfully across education systems and have a smaller effect on the prediction anyway.
 input_row = {
     "Curricular units 2nd sem (approved)": units_2nd_approved,
     "Tuition fees up to date": 1 if tuition_up_to_date == "Yes" else 0,
     "Curricular units 1st sem (approved)": units_1st_approved,
     "Curricular units 2nd sem (enrolled)": units_2nd_enrolled,
-    "Course": course_code,
+    "Course": DEFAULT_COURSE_CODE,
     "Age at enrollment": age,
     "Gender": 1 if gender == "Male" else 0,
-    "Unemployment rate": unemployment_rate,
+    "Unemployment rate": DEFAULT_UNEMPLOYMENT_RATE,
     "Curricular units 2nd sem (grade)": grade_2nd,
     "Curricular units 1st sem (grade)": grade_1st,
     "Debtor": 1 if debtor == "Yes" else 0,
